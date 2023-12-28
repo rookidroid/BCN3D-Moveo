@@ -1,24 +1,32 @@
-/* Example sketch to control a stepper motor with TB6600 stepper motor driver 
-  and Arduino without a library: continuous rotation. 
-  More info: https://www.makerguides.com */
+// Include the AccelStepper library:
+#include "AccelStepper.h"
 
-// Define stepper motor connections:
+// Define stepper motor connections and motor interface type. 
+// Motor interface type must be set to 1 when using a driver:
 #define dirPin 2
 #define stepPin 3
+#define motorInterfaceType 1
+
+// Create a new instance of the AccelStepper class:
+AccelStepper stepper = AccelStepper(motorInterfaceType, stepPin, dirPin);
 
 void setup() {
-  // Declare pins as output:
-  pinMode(stepPin, OUTPUT);
-  pinMode(dirPin, OUTPUT);
-
-  // Set the spinning direction CW/CCW:
-  digitalWrite(dirPin, HIGH);
+  // Set the maximum speed and acceleration:
+  stepper.setMaxSpeed(4000);
+  stepper.setAcceleration(3000);
 }
 
 void loop() {
-  // These four lines result in 1 step:
-  digitalWrite(stepPin, HIGH);
-  delayMicroseconds(500);
-  digitalWrite(stepPin, LOW);
-  delayMicroseconds(500);
+  // Set the target position:
+  stepper.moveTo(2000);
+  // Run to target position with set speed and acceleration/deceleration:
+  stepper.runToPosition();
+
+  delay(1000);
+
+  // Move back to zero:
+  stepper.moveTo(0);
+  stepper.runToPosition();
+
+  delay(1000);
 }
