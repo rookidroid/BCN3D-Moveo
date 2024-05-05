@@ -1,7 +1,5 @@
 #include "FastAccelStepper.h"
 
-// Define stepper motor connections and motor interface type. 
-// Motor interface type must be set to 1 when using a driver:
 #define J1_DIR 13
 #define J1_STEP 12
 
