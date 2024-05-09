@@ -1,5 +1,7 @@
 #include "FastAccelStepper.h"
 
+#include <ESP32Servo.h>
+
 #define J1_DIR 13
 #define J1_STEP 12
 
@@ -15,6 +17,11 @@
 #define J5_DIR 15
 #define J5_STEP 2
 
+#define servoPin 4
+const int MID = 1500;
+const int MIN = 700;
+const int MAX = 2300;
+
 FastAccelStepperEngine engine = FastAccelStepperEngine();
 
 FastAccelStepper *j1_stepper = NULL;
@@ -22,6 +29,8 @@ FastAccelStepper *j2_stepper = NULL;
 FastAccelStepper *j3_stepper = NULL;
 FastAccelStepper *j4_stepper = NULL;
 FastAccelStepper *j5_stepper = NULL;
+
+Servo hand_servo;
 
 void setup() {
   pinMode(J1_DIR, OUTPUT);
@@ -35,6 +44,9 @@ void setup() {
   pinMode(J5_DIR, OUTPUT);
   pinMode(J5_STEP, OUTPUT);
 
+  hand_servo.attach(servoPin, MIN, MAX);
+  hand_servo.writeMicroseconds(MID);
+
   engine.init();
   j1_stepper = engine.stepperConnectToPin(J1_STEP);
   if (j1_stepper) {
@@ -44,9 +56,9 @@ void setup() {
      j1_stepper->setAcceleration(800);    // 800 steps/s²
 
   }
-  j1_stepper->moveTo(1000, true);
-  j1_stepper->moveTo(-1000, true);
-  j1_stepper->moveTo(0, true);
+//  j1_stepper->moveTo(1000, true);
+//  j1_stepper->moveTo(-1000, true);
+//  j1_stepper->moveTo(0, true);
 
   j2_stepper = engine.stepperConnectToPin(J2_STEP);
   if (j2_stepper) {
@@ -56,9 +68,9 @@ void setup() {
      j2_stepper->setAcceleration(800);    // 800 steps/s²
 
   }
-  j2_stepper->moveTo(2000, true);
-  j2_stepper->moveTo(-2000, true);
-  j2_stepper->moveTo(0, true);
+//  j2_stepper->moveTo(2000, true);
+//  j2_stepper->moveTo(-2000, true);
+//  j2_stepper->moveTo(0, true);
 
   j3_stepper = engine.stepperConnectToPin(J3_STEP);
   if (j3_stepper) {
@@ -68,9 +80,9 @@ void setup() {
      j3_stepper->setAcceleration(800);    // 800 steps/s²
 
   }
-  j3_stepper->moveTo(2000, true);
-  j3_stepper->moveTo(-2000, true);
-  j3_stepper->moveTo(0, true);
+//  j3_stepper->moveTo(2000, true);
+//  j3_stepper->moveTo(-2000, true);
+//  j3_stepper->moveTo(0, true);
 
   j4_stepper = engine.stepperConnectToPin(J4_STEP);
   if (j4_stepper) {
@@ -80,9 +92,9 @@ void setup() {
      j4_stepper->setAcceleration(800);    // 800 steps/s²
 
   }
-  j4_stepper->moveTo(2000, true);
-  j4_stepper->moveTo(-2000, true);
-  j4_stepper->moveTo(0, true);
+//  j4_stepper->moveTo(2000, true);
+//  j4_stepper->moveTo(-2000, true);
+//  j4_stepper->moveTo(0, true);
 
   j5_stepper = engine.stepperConnectToPin(J5_STEP);
   if (j5_stepper) {
@@ -92,9 +104,9 @@ void setup() {
      j5_stepper->setAcceleration(800);    // 800 steps/s²
 
   }
-  j5_stepper->moveTo(2000, true);
-  j5_stepper->moveTo(-2000, true);
-  j5_stepper->moveTo(0, true);
+//  j5_stepper->moveTo(2000, true);
+//  j5_stepper->moveTo(-2000, true);
+//  j5_stepper->moveTo(0, true);
 
 }
 
